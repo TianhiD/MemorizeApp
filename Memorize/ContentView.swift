@@ -10,13 +10,15 @@ import SwiftData
 
 
 struct ContentView: View {
+    let emojis: [String] = ["🍁", "🪷", "🪲", "🐝", "🍁"] //same as Array<String>
 
     var body: some View {
         HStack {
-            CardView(isFaceUp: true)
-            CardView()
-            CardView()
-            CardView()
+            ForEach(emojis.indices, id: \.self) { index in
+                CardView(content: emojis[index])
+            }
+            
+          
         }
         .foregroundColor(.blue)
         .padding()
@@ -24,7 +26,9 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-  @State var isFaceUp = false
+    let content: String
+    
+    @State var isFaceUp = false
     
     var body: some View {
         ZStack(/*alignment: .center--> default*/) {
@@ -33,7 +37,7 @@ struct CardView: View {
                 base.fill(.white)
                     
                 base .stroke(lineWidth: 2)
-                Text("🧠")
+                Text(content)
                     .font(.largeTitle)
             } else {
                 base.fill()
